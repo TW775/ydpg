@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>云顶官方PG试玩</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", sans-serif;
+            background: linear-gradient(to right, #d99394, #1e3a8a);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(to right, #0d31e1, #c2033f);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        header .logo img {
+            width: 30px;
+            height: 30px;
+        }
+
+        header a {
+            color: #facc15;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 10px 0 10px;
+            color: #facc15;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            padding: 8px;
+            width: 300px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            padding: 0 20px 40px;
+        }
+
+
+        /* 让 .game-card 是链接但外观看不出 a 的默认样式 */
+        .game-card {
+            display: block;
+            text-decoration: none;
+            color: #facc15;
+            background: #2d3748;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+            /* 手机点击不出现阴影 */
+        }
+
+        /* 悬浮浮动保留 */
+        .game-card:hover {
+            transform: scale(1.05);
+            background-color: #4b5563;
+        }
+
+        /* 图片大小不变 */
+        .game-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 8px;
+            border-radius: 10px;
+        }
+
+        /* 游戏标题样式 */
+        .game-card .title {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .game-card a {
+            display: block;
+            color: #facc15;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .bottom-tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 65px;
+            background: linear-gradient(to right, #ede9fe, #f3e8ff);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e5e7eb;
+            z-index: 999;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .tab-item .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #a855f7, #6366f1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tab-item .icon-wrapper img {
+            width: 90%;
+            height: 90%;
+            padding: 7px;
+            /* 缩小内部图标大小一致化 */
+            object-fit: contain;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .tab-item.active .icon-wrapper {
+            background: linear-gradient(145deg, #a855f7, #6366f1);
+            /* ✅ 移除阴影效果 */
+            box-shadow: none;
+        }
+
+        .tab-item.active .label {
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 4px;
+            color: #a855f7;
+        }
+
+        .rightbox{display: block;position: fixed;right: 50px;bottom:50px;width: 60px;height: 60px;z-index:999;}
+.leftbox,.rightbox img{border: 2px solid #fff;border-radius: 20%;}
+    </style>
+
+</head>
+<div id="rightbox" class="rightbox">
+    <div id="rightbar" class="rightbar">
+        <a href="https://加拿大.co" target="_blank"><img src="img/yc.jpg" width="65" height="65"></a>
+
+    </div>
+</div>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/云logo新.png" alt="logo">
+            云顶官方PG试玩
+        </div>
+        <a href="https://www.云顶娱乐.co" target="_blank">进入云顶 ➤</a>
+    </header>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜索游戏名称..." onkeyup="filterGames()">
+    </div>
+    <div style="text-align: center; color: #f87171; margin-top: -20px; margin-bottom: 20px; font-size: 14px;">
+        提示！国内部分地区试玩需开加速器翻墙！
+    </div>
+    <div class="game-grid" id="gameGrid">
+        <div class="game-card"
+            onclick="loadIframeGame('https://pgapp6-com-mahjong-ways.netlify.app/')">
+            <img alt="麻将糊了1" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/35692_369926.png" />
+            <div class="title">麻将糊了1</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-mahjong-ways-2.netlify.app/')">
+            <img alt="麻将糊了2" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/673797_796033.png" />
+            <div class="title">麻将糊了2</div>
+        </div>
+                <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-queen-of-bounty.netlify.app/')">
+            <img alt="赏金女王" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/641351_251887.png" />
+            <div class="title">赏金女王</div>
+        </div>
+                <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-captains-bounty.netlify.app/')">
+            <img alt="赏金船长" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/767132_742596.png" />
+            <div class="title">赏金船长</div>
+        </div>
+                <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-wild-bounty-showdown.netlify.app/')">
+            <img alt="赏金大对决" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/256915_324054.png" />
+            <div class="title">赏金大对决</div>
+        </div>
+                <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-hawaiian-tiki.netlify.app/')">
+            <img alt="夏威夷探奇" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/470885_772306.png" />
+            <div class="title">夏威夷探奇</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-midas-fortune.netlify.app/')">
+            <img alt="点石成金" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/947161_779389.png" />
+            <div class="title">点石成金</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-fortune-rabbit.netlify.app/')">
+            <img alt="金钱兔" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/196833_453198.png" />
+            <div class="title">金钱兔</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-rave-party-fever.netlify.app/')">
+            <img alt="电音派对" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/435383_451801.png" />
+            <div class="title">电音派对</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-asgardian-rising.netlify.app/')">
+            <img alt="维京纪元" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/712184_333355.png" />
+            <div class="title">维京纪元</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-cocktail-nights.netlify.app/')">
+            <img alt="夜醉佳人" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/369955_85368.png" />
+            <div class="title">夜醉佳人</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-totem-wonders.netlify.app/')">
+            <img alt="图腾奇迹" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/589904_783535.png" />
+            <div class="title">图腾奇迹</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-prosperity-fortune-tree.netlify.app/')">
+            <img alt="黄金摇钱树" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/291631_413765.png" />
+            <div class="title">黄金摇钱树</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-spirited-wonders.netlify.app/')">
+            <img alt="百鬼夜行" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/924466_324986.png" />
+            <div class="title">百鬼夜行</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-wild-coaster.netlify.app/')">
+            <img alt="疯狂过山车" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/248331_821468.png" />
+            <div class="title">疯狂过山车</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-legendary-monkey-king.netlify.app/')">
+            <img alt="美猴王传奇" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/716386_289852.png" />
+            <div class="title">美猴王传奇</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-legend-of-perseus.netlify.app/')">
+            <img alt="珀尔修斯传奇" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/991193_213338.png" />
+            <div class="title">珀尔修斯传奇</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-buffalo-win.netlify.app/')">
+            <img alt="美洲野牛" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/517062_246432.png" />
+            <div class="title">美洲野牛</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-speed-winner.netlify.app/')">
+            <img alt="极速赢家" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/468330_953637.png" />
+            <div class="title">极速赢家</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-battleground-royale.netlify.app/')">
+            <img alt="绝地大逃杀" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/356192_310350.png" />
+            <div class="title">绝地大逃杀</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-lucky-piggy.netlify.app/')">
+            <img alt="电玩金猪" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/181073_942256.png" />
+            <div class="title">电玩金猪</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-the-queen-banquest.netlify.app/')">
+            <img alt="韩宫御宴" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/269931_487892.png" />
+            <div class="title">韩宫御宴</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-win-win-fish-prawn.netlify.app/')">
+            <img alt="发财鱼虾蟹" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/397337_613395.png" />
+            <div class="title">发财鱼虾蟹</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-rooster-rumble.netlify.app/')">
+            <img alt="斗鸡" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/51908_996988.png" />
+            <div class="title">斗鸡</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-butterfly-blossom.netlify.app/')">
+            <img alt="蝶恋花" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/105526_907247.png" />
+            <div class="title">蝶恋花</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-destiny-of-sun-moon.netlify.app/')">
+            <img alt="日月星辰" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/577516_9093.png" />
+            <div class="title">日月星辰</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-garuda-gems.netlify.app/')">
+            <img alt="神鹰宝石" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/239997_120286.png" />
+            <div class="title">神鹰宝石</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-egypts-book-of-mystery.netlify.app/')">
+            <img alt="探秘埃及" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/438355_754715.png" />
+            <div class="title">探秘埃及</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-supermarket-spree.netlify.app/')">
+            <img alt="超市大血拼" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/839393_437970.png" />
+            <div class="title">超市大血拼</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-mermaid-riches.netlify.app/')">
+            <img alt="人鱼公主" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/474362_817445.png" />
+            <div class="title">人鱼公主</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-jurassic-kingdom.netlify.app/')">
+            <img alt="恐龙帝国" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/417293_428057.png" />
+            <div class="title">恐龙帝国</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-rise-of-apollo.netlify.app/')">
+            <img alt="太阳神" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/335705_691360.png" />
+            <div class="title">太阳神</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-heist-stakes.netlify.app/')">
+            <img alt="霹雳神偷" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/900946_696390.png" />
+            <div class="title">霹雳神偷</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-ways-of-the-qilin.netlify.app/')">
+            <img alt="麒麟送宝" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/436143_3599.png" />
+            <div class="title">麒麟送宝</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-wild-bandito.netlify.app/')">
+            <img alt="亡灵大道" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/516245_633763.png" />
+            <div class="title">亡灵大道</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-candy-bonanza.netlify.app/')">
+            <img alt="糖心风暴" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/54789_936296.png" />
+            <div class="title">糖心风暴</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-majestic-treasures.netlify.app/')">
+            <img alt="宝石传奇" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/779125_778249.png" />
+            <div class="title">宝石传奇</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-lucky-neko.netlify.app/')">
+            <img alt="招财猫" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/407092_158977.png" />
+            <div class="title">招财猫</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-jewels-of-prosperity.netlify.app/')">
+            <img alt="金玉满堂" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/916460_307914.png" />
+            <div class="title">金玉满堂</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-vampire-charm.netlify.app/')">
+            <img alt="古德拉女爵" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/401138_880099.png" />
+            <div class="title">古德拉女爵</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-secrets-of-cleopatra.netlify.app/')">
+            <img alt="艳后之谜" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/670638_39534.png" />
+            <div class="title">艳后之谜</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-thai-river-wonders.netlify.app/')">
+            <img alt="水上泰神奇" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/184915_156561.png" />
+            <div class="title">水上泰神奇</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-circus-delights.netlify.app/')">
+            <img alt="欢乐嘉年华" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/307321_154721.png" />
+            <div class="title">欢乐嘉年华</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-treasures-of-aztec.netlify.app/')">
+            <img alt="寻宝黄金城" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/837912_231.png" />
+            <div class="title">寻宝黄金城</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-genie-3-wishes.netlify.app/')">
+            <img alt="阿拉丁神灯" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/350240_214909.png" />
+            <div class="title">阿拉丁神灯</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-wild-fireworks.netlify.app/')">
+            <img alt="火树赢花" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/424430_271852.png" />
+            <div class="title">火树赢花</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-dreams-of-macau.netlify.app/')">
+            <img alt="澳门壕梦" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/284853_961199.png" />
+            <div class="title">澳门壕梦</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-phoenix-rises.netlify.app/')">
+            <img alt="凤凰传奇" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/320325_958482.png" />
+            <div class="title">凤凰传奇</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-ganesha-fortune.netlify.app/')">
+            <img alt="福运象财神" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/525251_641931.png" />
+            <div class="title">福运象财神</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-egypts-book-of-mystery.netlify.app/')">
+            <img alt="埃及探秘宝典" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/438355_754715.png" />
+            <div class="title">埃及探秘宝典</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-bikini-paradise.netlify.app/')">
+            <img alt="比基尼天堂" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/451060_375666.png" />
+            <div class="title">比基尼天堂</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-caishen-wins.netlify.app/')">
+            <img alt="赢财神" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/178159_290913.png" />
+            <div class="title">赢财神</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-candy-burst.netlify.app/')">
+            <img alt="糖果连连爆" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/870292_159921.png" />
+            <div class="title">糖果连连爆</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-gem-saviour-conquest.netlify.app/')">
+            <img alt="宝藏征途" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/637385_604950.png" />
+            <div class="title">宝藏征途</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-reel-love.netlify.app/')">
+            <img alt="亲爱的" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/18998_40672.png" />
+            <div class="title">亲爱的</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-fortune-mouse.netlify.app/')">
+            <img alt="鼠鼠福福" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/640985_78190.png" />
+            <div class="title">鼠鼠福福</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-dragon-hatch.netlify.app/')">
+            <img alt="寻龙探宝" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/611204_224869.png" />
+            <div class="title">寻龙探宝</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-fortune-gods.netlify.app/')">
+            <img alt="横财来啦" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/829609_513992.png" />
+            <div class="title">横财来啦</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-hotpot.netlify.app/')">
+            <img alt="麻辣火锅" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/597554_275035.png" />
+            <div class="title">麻辣火锅</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-hallowwin.netlify.app/')">
+            <img alt="万胜狂欢夜" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/97792_218352.png" />
+            <div class="title">万胜狂欢夜</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-tree-fortune.netlify.app/')">
+            <img alt="摇钱树" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/867451_232931.png" />
+            <div class="title">摇钱树</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-legend-of-hou-yi.netlify.app/')">
+            <img alt="后羿射日" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/771765_831415.png" />
+            <div class="title">后羿射日</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-plushie-frenzy.netlify.app/')">
+            <img alt="抓抓乐" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/885950_861796.png" />
+            <div class="title">抓抓乐</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-hood-vs-wolf.netlify.app/')">
+            <img alt="逆袭小红帽" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/226982_551007.png" />
+            <div class="title">逆袭小红帽</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-gem-saviour.netlify.app/')">
+            <img alt="宝石侠" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/170597_309015.png" />
+            <div class="title">宝石侠</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-prosperity-lion.netlify.app/')">
+            <img alt="舞狮进宝" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/308375_679125.png" />
+            <div class="title">舞狮进宝</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-dragon-tiger-luck.netlify.app/')">
+            <img alt="龍虎" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/364974_259569.png" />
+            <div class="title">龍虎</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-hip-hop-panda.netlify.app/')">
+            <img alt="嘻哈熊猫" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/330222_122611.png" />
+            <div class="title">嘻哈熊猫</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-gem-saviour-sword.netlify.app/')">
+            <img alt="宝石侠大宝剑" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/175191_909872.png" />
+            <div class="title">宝石侠大宝剑</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-piggy-gold.netlify.app/')">
+            <img alt="金猪报财" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/491331_412774.png" />
+            <div class="title">金猪报财</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-symbols-of-egypt.netlify.app/')">
+            <img alt="埃及寻宝" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/849505_821307.png" />
+            <div class="title">埃及寻宝</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-emperors-favour.netlify.app/')">
+            <img alt="皇上吉祥" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/648728_607668.png" />
+            <div class="title">皇上吉祥</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-ganesha-gold.netlify.app/')">
+            <img alt="象财神" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/469936_713787.png" />
+            <div class="title">象财神</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-double-fortune.netlify.app/')">
+            <img alt="双囍临门" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/284671_591557.png" />
+            <div class="title">双囍临门</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-the-great-icescape.netlify.app/')">
+            <img alt="冰雪大冲关" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/217617_147754.png" />
+            <div class="title">冰雪大冲关</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-journey-to-the-wealth.netlify.app/')">
+            <img alt="嘻游记" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/339038_652324.png" />
+            <div class="title">嘻游记</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-honey-trap-of-diao-chan.netlify.app/')">
+            <img alt="夜戏貂蝉" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/832936_711136.png" />
+            <div class="title">夜戏貂蝉</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-leprechaun-riches.netlify.app/')">
+            <img alt="爱尔兰精灵" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/550654_459120.png" />
+            <div class="title">爱尔兰精灵</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-flirting-scholar.netlify.app/')">
+            <img alt="唐伯虎点秋香" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/884235_465749.png" />
+            <div class="title">唐伯虎点秋香</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-ninja-vs-samural.netlify.app/')">
+            <img alt="忍者VS武士" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/888619_476824.png" />
+            <div class="title">忍者VS武士</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-muay-thai-champion.netlify.app/')">
+            <img alt="拳霸" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/90510_946382.png" />
+            <div class="title">拳霸</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-jack-frosts-winter.netlify.app/')">
+            <img alt="冰封奇侠" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/943272_824781.png" />
+            <div class="title">冰封奇侠</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-galactic-gems.netlify.app/')">
+            <img alt="星旅淘金" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/842830_959133.png" />
+            <div class="title">星旅淘金</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-guardians-of-ice-and-fire.netlify.app/')">
+            <img alt="冰火双娇" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/795813_130808.png" />
+            <div class="title">冰火双娇</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-fortune-ox.netlify.app/')">
+            <img alt="十倍金牛" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/961707_454530.png" />
+            <div class="title">十倍金牛</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-opera-dynasty.netlify.app/')">
+            <img alt="新国粹" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/777161_371116.png" />
+            <div class="title">新国粹</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-crypto-gold.netlify.app/')">
+            <img alt="比特淘金" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/73172_222075.png" />
+            <div class="title">比特淘金</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-fortune-tiger.netlify.app/')">
+            <img alt="虎虎生财" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/634619_115845.png" />
+            <div class="title">虎虎生财</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-oriental-prosperity.netlify.app/')">
+            <img alt="江山美景图" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/463180_320551.png" />
+            <div class="title">江山美景图</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-diner-delights.netlify.app/')">
+            <img alt="美食美刻" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/677027_725088.png" />
+            <div class="title">美食美刻</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-mask-carnival.netlify.app/')">
+            <img alt="假面嘉年华" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/215066_639961.png" />
+            <div class="title">假面嘉年华</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-alchemy-gold.netlify.app/')">
+            <img alt="炼金工坊" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/12584_961957.png" />
+            <div class="title">炼金工坊</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-songkran-splash.netlify.app/')">
+            <img alt="泰嗨泼水节" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/327769_531719.png" />
+            <div class="title">泰嗨泼水节</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-mystical-spirits.netlify.app/')">
+            <img alt="元素精灵" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/430355_901328.png" />
+            <div class="title">元素精灵</div>
+        </div>
+        <div class="game-card" onclick="loadIframeGame('https://pgapp6-com-super-golf-drive.netlify.app/')">
+            <img alt="超级高尔夫" src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/12935975/770251_482917.png" />
+            <div class="title">超级高尔夫</div>
+        </div>
+    </div>
+
+    <!-- 添加iframe容器 (建议放在game-grid下方) -->
+    <div id="gameIframeContainer" style="display:none; 
+            position:fixed; 
+            top: -0vh;  /* 上移20px让内容超出 */
+            left: -22vw; /* 左移20px让内容超出 */
+            right: -22vw; /* 右移20px让内容超出 */
+            bottom: -24vh; /* 下移20px让内容超出 */
+            background:rgba(0,0,0,0.9); 
+            z-index:1000;
+            overflow:visible;  /* 改为visible允许溢出 */
+            padding:0px;">
+        <div style="position:relative; 
+                width:100%; 
+                height:100%; 
+                margin:0 auto;">
+            <!-- 关闭按钮现在放在iframe内部右上角 -->
+            <button onclick="closeIframe()" style="position:absolute; 
+                   bottom:20px; /* 增大这个值会让按钮更靠上 */
+                   right:20px; /* 增大这个值会让按钮更靠左 */
+                   background:#f44336; 
+                   color:white; 
+                   border:none; 
+                   padding:11px 85px; 
+                   border-radius:22px;
+                   cursor:pointer;
+                   z-index:1001;
+                   font-weight:bold;
+                   box-shadow:0 2px 5px rgba(0,0,0,0.3);
+                   font-size:16px;">
+                × 关闭
+            </button>
+
+            <button onclick="window.open('https://ydpc8.cc', '_blank')" style="
+                   /* 核心定位：固定在视口顶部居中 */
+                   position: fixed;  /* 改为fixed，相对于视口固定 */
+                   top: 0px;        /* 距离顶部20px，可根据需要调整 */
+                   left: 50%;        /* 水平居中第一步：左边缘到视口50%位置 */
+                   transform: translateX(-50%); /* 水平居中第二步：向左偏移自身50%宽度 */
+                   
+                   /* 原有样式保留并优化 */
+                   background:#f44336; 
+                   color:white; 
+                   border:none; 
+                   padding:14px 220px; 
+                   border-radius:22px;
+                   cursor:pointer;
+                   z-index:1001;
+                   font-weight:bold;
+                   box-shadow:0 2px 5px rgba(0,0,0,0.3);
+                   font-size:16px;
+                   /* 新增：防止按钮被选中或遮挡 */
+                   box-sizing: border-box;
+                   white-space: nowrap;
+                   ">
+                12年老牌集团，进入了解 ➤
+            </button>
+            <iframe id="gameIframe" style="width:100%; 
+                   height:100%; 
+                   border:none; 
+                   border-radius:8px;
+                   box-shadow:0 0 20px rgba(0,0,0,0.5);"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function filterGames() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const grid = document.getElementById('gameGrid');
+            const cards = grid.getElementsByClassName('game-card');
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].innerText || cards[i].textContent;
+                cards[i].style.display = title.toLowerCase().includes(filter) ? "block" : "none";
+            }
+        }
+
+        // ====== iframe 控制逻辑 ======
+        let currentGameUrl = null;
+        let isIframeOpen = false;
+
+        function adjustIframeSize() {
+            const container = document.getElementById('gameIframeContainer');
+            const iframeWrapper = container.firstElementChild;
+
+            const maxWidth = window.innerWidth;
+            const maxHeight = window.innerHeight;
+
+            iframeWrapper.style.width = `${maxWidth}px`;
+            iframeWrapper.style.height = `${maxHeight}px`;
+        }
+
+        function loadIframeGame(encodedUrl) {
+            const iframeContainer = document.getElementById('gameIframeContainer');
+            const iframe = document.getElementById('gameIframe');
+
+            // 直接使用原始URL，不需要解码
+            const gameUrl = encodedUrl; // 移除 atob() 解码
+
+            if (currentGameUrl === gameUrl && isIframeOpen) {
+                return; // 已经打开，不做任何操作
+            }
+
+            currentGameUrl = gameUrl;
+            adjustIframeSize();
+            iframe.src = gameUrl; // 直接使用原始URL
+            iframeContainer.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            isIframeOpen = true;
+
+            // 添加浏览器历史记录
+            history.pushState({ iframeOpen: true }, '');
+
+            window.addEventListener('popstate', handleBackButton);
+            window.addEventListener('resize', adjustIframeSize);
+        }
+
+        function handleBackButton(event) {
+            if (isIframeOpen) {
+                event.preventDefault();
+                closeIframe();
+                // 手动回退历史记录
+                history.back();
+            }
+        }
+
+        function closeIframe() {
+            const iframeContainer = document.getElementById('gameIframeContainer');
+            iframeContainer.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            isIframeOpen = false;
+
+            // 不清空iframe.src，保持游戏状态
+            window.removeEventListener('popstate', handleBackButton);
+            window.removeEventListener('resize', adjustIframeSize);
+        }
+
+        // 初始化历史记录
+        window.addEventListener('load', () => {
+            history.pushState({ iframeOpen: false }, '');
+        });
+    </script>
+
+
+</body>
+
+
+</html>
